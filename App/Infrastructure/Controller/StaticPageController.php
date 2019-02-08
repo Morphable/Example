@@ -10,7 +10,7 @@ class StaticPageController
     {
         return $res->sendResponse(
             Application::getService("view")->serve("pages/home.php", [
-                'title' => 'hello world'
+                'page' => 'home'
             ])
         );
     }

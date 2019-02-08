@@ -1,1 +1,17 @@
-@import '~bulma/bulma.sass'
+@import '~bulma/bulma.sass';
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .header, .footer {
+        width: 100%;
+    }
+    .main-content {
+        flex-grow: 1;
+    }
+}
+
+.footer {
+    padding: 2em;
+}

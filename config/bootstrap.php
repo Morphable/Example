@@ -5,6 +5,8 @@ use \Morphable\SimpleRouting;
 use \Morphable\SimpleRouting\Builder;
 use \Symfony\Component\Dotenv\Dotenv;
 
+session_start();
+
 // require vendor
 require __DIR__ . '/../vendor/autoload.php';
 

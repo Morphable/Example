@@ -22,6 +22,6 @@ class ResourceController
             );
         }
 
-        return $res->sendResponse("", 404);
+        return $res->sendResponse("No resource...", 404);
     }
 }
