@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/morphable/example#readme",
   "devDependencies": {
+    "bulma": "^0.7.3",
     "css-loader": "^2.1.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
