@@ -2,6 +2,6 @@
 
 namespace App\Domain;
 
-class Post
+class Post extends \App\Infrastucture\Model
 {
 }

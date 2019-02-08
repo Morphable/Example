@@ -2,6 +2,6 @@
 
 namespace App\Domain;
 
-class Comment
+class Comment extends \App\Infrastucture\Model
 {
 }

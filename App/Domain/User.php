@@ -2,6 +2,6 @@
 
 namespace App\Domain;
 
-class User
+class User extends \App\Infrastucture\Model
 {
 }
