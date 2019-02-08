@@ -8,7 +8,8 @@ class AuthController
 {
     public static function login($req, $res)
     {
-        # code...
+        print_r($_POST);
+        die;
     }
 
     public static function logout($req, $res)
@@ -16,7 +17,7 @@ class AuthController
         # code...
     }
 
-    public static function singup($req, $res)
+    public static function register($req, $res)
     {
         # code...
     }

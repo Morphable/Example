@@ -14,4 +14,22 @@ class StaticPageController
             ])
         );
     }
+
+    public static function serveAuth($req, $res)
+    {
+        return $res->sendResponse(
+            Application::getService("view")->serve("pages/auth.php", [
+                'page' => 'auth'
+            ])
+        );
+    }
+
+    public static function serveDashboard($req, $res)
+    {
+        return $res->sendResponse(
+            Application::getService("view")->serve("pages/dashboard.php", [
+                'page' => 'dashboard'
+            ])
+        );
+    }
 }

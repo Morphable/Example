@@ -11,7 +11,7 @@
 
 <nav class="header is-primary navbar has-shadow" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/"><?= (getenv('APP_NAME') != null ? getenv('APP_NAME') : 'Example') ?></a>
+    <a class="navbar-item" href="<?= \App\Domain\Auth\Authorized::isLoggedIn() ? '/dashboard' : '/' ?>"><?= (getenv('APP_NAME') != null ? getenv('APP_NAME') : 'Example') ?></a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -28,7 +28,7 @@
             <? if (\App\Domain\Auth\Authorized::isLoggedIn()) { ?>
                 <a class="button is-light" href="/auth/logout">Logout</a>
             <? } else { ?>
-                <a class="button is-light" href="/login">Log in</a>
+                <a class="button is-light" href="/auth">Log in</a>
             <? } ?>
         </div>
       </div>

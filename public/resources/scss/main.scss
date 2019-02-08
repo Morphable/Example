@@ -1,5 +1,9 @@
 @import '~bulma/bulma.sass';
 
+.is-fullwidth {
+    width: 100%;
+}
+
 .wrapper {
     min-height: 100vh;
     display: flex;
