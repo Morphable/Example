@@ -21,7 +21,7 @@ class AuthController
         # code...
     }
 
-    public static function retrivePassword($req, $res)
+    public static function forgotPassword($req, $res)
     {
         # code...
     }
