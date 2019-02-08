@@ -1,9 +1,15 @@
 <?php
 
 use \App\Infrastructure\Controller\StaticPageController;
+use \App\Infrastructure\Controller\ResourceController;
 
 // predefine routes with static method as callback
 return [
+    'resources' => [
+        'method' => 'get',
+        'route' => '/resources/:type',
+        'callback' => [ResourceController::class, 'serve']
+    ],
     'index' => [
         'method' => 'GET',
         'route' => '/',
