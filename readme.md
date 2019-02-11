@@ -17,3 +17,4 @@
 - symfony/dotenv (simple enviromental config file)
 - phpunit/phpunit (tests)
 - squizlabs/php_codesniffer (keeping your project psr-2)
+- symfony/console (crons and development commands)

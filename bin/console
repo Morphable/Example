@@ -1,0 +1,17 @@
+#!/usr/bin/php
+<?php
+
+use \Symfony\Component\Console\Application as Console;
+use \App\Infrastructure\Application;
+
+require __DIR__ . '/../config/bootstrap.php';
+
+$console = new Console();
+
+$commands = include Application::getPath('config') . '/commands.php';
+
+foreach ($commands as $command) {
+    $console->add($command);
+}
+
+$console->run();
