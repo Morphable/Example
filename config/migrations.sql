@@ -1,5 +1,7 @@
+-- users
+
 create table users (
-    userId integer primary key,
+    id integer primary key,
     email varchar not null unique,
     password varchar not null,
     isActive tinyint default 0,
@@ -7,21 +9,25 @@ create table users (
     lastActive datetime
 ) without rowid;
 
+-- posts
+
 create table posts (
-    postId integer primary key,
+    id integer primary key,
     userId integer not null,
     title varchar not null,
     content text,
     createdAt datetime not null,
-    foreign key (userId) references users(userId)
+    foreign key (userId) references users(id)
 ) without rowid;
 
+-- comments
+
 create table comments (
-    commentId integer primary key,
+    id integer primary key,
     postId integer not null,
     userId integer not null,
     content text not null,
     createdAt datetime not null,
-    foreign key (postId) references posts(postId),
-    foreign key (userId) references users(userId)
+    foreign key (postId) references posts(id),
+    foreign key (userId) references users(id)
 ) without rowid;

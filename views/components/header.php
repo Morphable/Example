@@ -20,7 +20,7 @@
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-menu">
     <div class="navbar-start"></div>
     <div class="navbar-end">
       <div class="navbar-item">
@@ -34,6 +34,33 @@
       </div>
     </div>
   </div>
+
+<? if (isset($_SESSION['message']['form']['general']['msg']) && $_SESSION['message']['form']['general']['msg'] != null) { ?>
+<?
+    switch ($_SESSION['message']['form']['general']['type']) {
+        case 'error':
+            $notifType = 'is-danger';
+            break;
+        case 'success':
+            $notifType = 'is-success';
+            break;
+        case 'info':
+            $notifType = 'is-info';
+            break;
+        case 'warning':
+            $notifType = 'warning';
+            break;
+        default:
+            $notifType = '';
+            break;
+    }
+?>
+    <div class="main-notification notification <?= $notifType ?>">
+        <button class="delete"></button>
+        <?= $_SESSION['message']['form']['general']['msg'] ?>
+    </div>
+<? } ?>
+
 </nav>
 
 <main class="main-content">

@@ -31,11 +31,25 @@ if ( php_sapi_name() != 'cli' ) {
         SimpleRouting::add($name, Builder::fromArray($route));
     }
 
+    if (!empty($_POST)) {
+        foreach ($_POST as $key => $value) {
+            if (isset($_SESSION['post'][$key])) {
+                continue;
+            }
+
+            $_SESSION['post'][$key] = $value;
+        }
+    }
+
     // execute router and catch errors
     try {
         SimpleRouting::execute();
     } catch (\Morphable\SimpleRouting\Exception\RouteNotFound  $e) {
         echo Application::getService('view')->serve('errors/404.php');
-        die;
     }
+
+    unset($_SESSION['post']);
+    unset($_SESSION['message']);
 }
+
+

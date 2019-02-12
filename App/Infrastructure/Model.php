@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure;
 
-class Model
+abstract class Model
 {
     protected $data = [];
 
@@ -20,11 +20,20 @@ class Model
         return $this;
     }
 
+    protected function get($name)
+    {
+        return $this->data[$name];
+    }
+
+    abstract public function prepareUpdate();
+
     public function update()
     {
         if (empty($this->data) || !isset($this->data['id']) || $this->tabel == null) {
             return false;
         }
+
+        $this->prepareUpdate();
 
         $id = $this->data['id'];
         $data = $this->data;
@@ -37,11 +46,15 @@ class Model
                 ->execute();
     }
 
+    abstract public function prepareInsert();
+
     public function insert()
     {
         if (empty($this->data) || isset($this->data['id']) || $this->tabel == null) {
             return false;
         }
+
+        $this->prepareInsert();
 
         return $this->db
                 ->builder($this->table)

@@ -19,3 +19,15 @@
 .footer {
     padding: 2em;
 }
+
+.header {
+    position: relative;
+}
+
+.main-notification {
+    position: absolute;
+    bottom: -50%;
+    right: 0;
+    margin: 1em;
+    transform: translateY(100%);
+}
