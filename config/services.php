@@ -5,9 +5,10 @@ use \Morphable\SimpleCache;
 use \Morphable\SimpleView;
 use \Morphable\SimpleDebugger;
 use \Morphable\SimpleDatabase;
+use \App\Domain\User\Repository as UserRepository;
 
 // define services, name => instance
-return [
+$services =  [
     'env' => getenv(),
     'cache' => new SimpleCache(Application::getPath('cache')),
     'view' => new SimpleView(Application::getPath('views')),
@@ -22,3 +23,7 @@ return [
         }
     )
 ];
+
+$services['userRepository'] = new UserRepository($services['database']);
+
+return $services;

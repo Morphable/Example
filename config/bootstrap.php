@@ -5,6 +5,8 @@ use \Morphable\SimpleRouting;
 use \Morphable\SimpleRouting\Builder;
 use \Symfony\Component\Dotenv\Dotenv;
 
+error_reporting(E_ALL);
+
 session_start();
 
 // require vendor

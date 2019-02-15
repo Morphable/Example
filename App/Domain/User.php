@@ -4,15 +4,28 @@ namespace App\Domain;
 
 class User extends \App\Infrastructure\Model
 {
+    protected $table = 'users';
+
     public function prepareInsert()
     {
         $this->set('createdAt', date('Y-m-d H:i:s'));
         $this->set('isActive', '0');
-        $this->set();
     }
 
     public function prepareUpdate()
     {
+    }
+
+    public function setId($id)
+    {
+        $this->set('id', $id);
+        return $this;
+    }
+
+    public function setLastActive()
+    {
+        $this->set('lastActive', date('Y-m-d H:i:s'));
+        return $this;
     }
 
     public function setEmail(string $email)

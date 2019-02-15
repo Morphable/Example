@@ -6,7 +6,7 @@ abstract class Model
 {
     protected $data = [];
 
-    protected $tabel;
+    protected $table;
 
     public function __construct()
     {
@@ -50,16 +50,11 @@ abstract class Model
 
     public function insert()
     {
-        if (empty($this->data) || isset($this->data['id']) || $this->tabel == null) {
-            return false;
-        }
-
         $this->prepareInsert();
 
         return $this->db
                 ->builder($this->table)
                 ->insert($this->data)
-                ->execute()
-                ->getLastInsertId();
+                ->execute();
     }
 }
