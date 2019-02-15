@@ -51,18 +51,29 @@ class StaticPageController
 
     public static function serveProfile($req, $res)
     {
-        $userId = A::getService('encryption')->decrypt($req->getParam('userId'));
+        $slug = $req->getParam('slug');
+        if (strtolower($slug) == 'me' && Authorized::isLoggedIn()) {
+            $slug = $_SESSION['user']['slug'];
+        }
 
-        if (!$userId) {
+        $user = A::getService('userRepository')->getPublicUser($slug);
+
+        if (empty($user)) {
             header('Location: /dashboard');
             return;
         }
 
-        A::getService('userRepository')->getPublicUser($userId);
+        $posts = A::getService('postRepository')->getPostsByUserId($user['id']);
+
+        foreach ($posts as $key => $post) {
+            $posts[$key] = A::getService('postMapper')->addUserToPost($post, $user);
+        }
 
         return $res->sendResponse(
             A::getService('view')->serve('pages/profile.php', [
-                'page' => 'profile'
+                'page' => 'profile',
+                'user' => $user,
+                'posts' => $posts
             ])
         );
     }

@@ -3,6 +3,22 @@
     <div class="field">
         <div class="control">
             <input
+                placeholder="Username"
+                class="input"
+                type="text"
+                name="username"
+                id="register-username"
+                value="<?= isset($_SESSION['post']['username']) ? $_SESSION['post']['username'] : '' ?>"
+                >
+            <? if (isset($_SESSION['message']['form']['username'])) { ?>
+                <p class="help is-danger"><?= $_SESSION['message']['form']['username'] ?></p>
+            <? } ?>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <input
                 placeholder="Email"
                 class="input"
                 type="text"

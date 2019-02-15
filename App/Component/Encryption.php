@@ -20,6 +20,10 @@ class Encryption
 
     public function decrypt($token)
     {
-        return JWT::decode($token, $this->secret, ['HS256']);
+        try {
+            return JWT::decode($token, $this->secret, ['HS256']);
+        } catch (\Exception $e) {}
+
+        return null;
     }
 }

@@ -3,10 +3,16 @@
 namespace App\Domain\User;
 
 use \Morphable\SimpleDatabase;
+use \App\Infrastructure\Application as A;
 
 class Repository extends \App\Infrastructure\Repository
 {
-    public function checkEmailUsed($email)
+    private function normalize(array $user)
+    {
+        return A::getService('userMapper')->normalize($user);
+    }
+
+    public function checkEmailUsed(string $email)
     {
         return $this->db->builder('users')
             ->select('COUNT(1) as `total`')
@@ -15,21 +21,48 @@ class Repository extends \App\Infrastructure\Repository
             ->fetchOne()['total'] > 0;
     }
 
-    public function getAuthUser(string $email)
+    public function checkUsernameUsed(string $username)
     {
         return $this->db->builder('users')
-            ->select('`id`, `email`, `password`, `isActive`')
-            ->where('`email` = ?', $email)
+            ->select('COUNT(1) as `total`')
+            ->where('`username` = ?', $username)
             ->execute()
-            ->fetchOne();
+            ->fetchOne()['total'] > 0;
     }
 
-    public function getPublicUser(int $id)
+    public function checkSlugUsed(string $slug)
     {
         return $this->db->builder('users')
-            ->select('`id`, `isActive`, `email`')
-            ->where('`id` = ?', $email)
+            ->select('COUNT(1) as `total`')
+            ->where('`slug` = ?', $slug)
             ->execute()
-            ->fetchOne();
+            ->fetchOne()['total'] > 0;
+    }
+
+    public function getAuthUserById(int $id)
+    {
+        return $this->normalize($this->db->builder('users')
+            ->select('`id`, `email`, `password`, `slug`, `isActive`')
+            ->where('`id` = ?', $id)
+            ->execute()
+            ->fetchOne());
+    }
+
+    public function getAuthUser(string $email)
+    {
+        return $this->normalize($this->db->builder('users')
+            ->select('`id`, `email`, `password`, `slug`, `isActive`')
+            ->where('`email` = ?', $email)
+            ->execute()
+            ->fetchOne());
+    }
+
+    public function getPublicUser(string $slug)
+    {
+        return $this->normalize($this->db->builder('users')
+            ->select('`id`, `isActive`, `username`, `bio`, `slug`, `profilePic`, `createdAt`, `email`')
+            ->where('`slug` = ?', $slug)
+            ->execute()
+            ->fetchOne());
     }
 }

@@ -6,23 +6,8 @@ use App\Infrastructure\Application;
 
 class UserController
 {
-    public static function index($req, $res)
+    public static function follow($req, $res)
     {
-        # code...
-    }
 
-    public static function detail()
-    {
-        # code...
-    }
-
-    public static function create($req, $res)
-    {
-        # code...
-    }
-
-    public static function update($req, $res)
-    {
-        # code...
     }
 }

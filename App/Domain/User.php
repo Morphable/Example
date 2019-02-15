@@ -2,14 +2,28 @@
 
 namespace App\Domain;
 
+use \App\Infrastructure\Application as A;
+
 class User extends \App\Infrastructure\Model
 {
     protected $table = 'users';
 
     public function beforeInsert()
     {
+        $this->set('slug', $this->getUniqueSlug());
         $this->set('createdAt', date('Y-m-d H:i:s'));
         $this->set('isActive', '0');
+    }
+
+    public function getUniqueSlug()
+    {
+        $slug = bin2hex(random_bytes(8));
+
+        if (A::getService('userRepository')->checkSlugUsed($slug)) {
+            return $thus->getUniqueSlug();
+        }
+
+        return $slug;
     }
 
     public function beforeUpdate()
@@ -18,14 +32,27 @@ class User extends \App\Infrastructure\Model
 
     public function setId($id)
     {
-        $this->set('id', $id);
-        return $this;
+        return $this->set('id', $id);
     }
 
     public function setLastActive()
     {
-        $this->set('lastActive', date('Y-m-d H:i:s'));
-        return $this;
+        return $this->set('lastActive', date('Y-m-d H:i:s'));
+    }
+
+    public function setUsername(string $username)
+    {
+        return $this->set('username', $username);
+    }
+
+    public function setSlug(string $slug)
+    {
+        return $this->set('slug', $slug);
+    }
+
+    public function setBio(string $bio)
+    {
+        return $this->set('bio', $bio);
     }
 
     public function setEmail(string $email)

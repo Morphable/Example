@@ -1,3 +1,5 @@
+<? use \App\Infrastructure\Application as A; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= (getenv('APP_NAME') != null ? getenv('APP_NAME') : 'Example') ?> <?= isset($this->getData()['page']) ? ' | ' . ucfirst($this->getData()['page']) : '' ?></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/css" type="text/css">
 </head>
 <body class="wrapper">
@@ -26,6 +29,7 @@
       <div class="navbar-item">
         <div class="buttons">
             <? if (\App\Domain\Auth\Authorized::isLoggedIn()) { ?>
+                <a class="button" href="/profile/me" title="me"><span class="icon is-small"><i class="fas fa-user"></i></span></a>
                 <a class="button is-light" href="/auth/logout">Logout</a>
             <? } else { ?>
                 <a class="button is-light" href="/auth">Log in</a>

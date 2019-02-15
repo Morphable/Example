@@ -4,6 +4,10 @@ create table users (
     id integer primary key autoincrement,
     email varchar not null unique,
     password varchar not null,
+    slug varchar,
+    bio text,
+    username varchar,
+    profilePic varchar,
     isActive tinyint default 0,
     createdAt datetime not null,
     lastActive datetime
@@ -25,6 +29,8 @@ create table posts (
     id integer primary key autoincrement,
     userId integer not null,
     content text,
+    tags varchar,
+    img varchar,
     createdAt datetime not null,
     foreign key (userId) references users(id)
 );

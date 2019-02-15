@@ -7,6 +7,11 @@
             <textarea class="textarea" placeholder="What's up?" name="content" cols="30" rows="3"></textarea>
         </div>
     </div>
+    <div class="field">
+        <div class="control">
+            <input type="text" class="input" placeholder="tags, comma seperated" name="tags">
+        </div>
+    </div>
 
     <div class="field">
         <div class="control">

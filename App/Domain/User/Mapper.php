@@ -4,10 +4,16 @@ namespace App\Domain\User;
 
 class Mapper
 {
-    private $data;
-
-    public function __construct(array $data)
+    public function normalize(array $user)
     {
-        $this->data = $data;
+        if ($user['profilePic'] == null) {
+            $user['profilePic'] = 'http://via.placeholder.com/128x128';
+        }
+
+        if ($user['bio'] == null) {
+            $user['bio'] = 'No information given';
+        }
+
+        return $user;
     }
 }

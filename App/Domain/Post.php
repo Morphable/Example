@@ -16,15 +16,18 @@ class Post extends \App\Infrastructure\Model
         return;
     }
 
+    public function setTags(string $tags)
+    {
+        return $this->set('tags', $tags);
+    }
+
     public function setContent(string $content)
     {
-        $this->set('content', $content);
-        return $this;
+        return $this->set('content', $content);
     }
 
     public function setUserId(int $userId)
     {
-        $this->set('userId', $userId);
-        return $this;
+        return $this->set('userId', $userId);
     }
 }

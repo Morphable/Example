@@ -24,7 +24,6 @@ $services = include Application::getPath('config') . '/services.php';
 foreach ($services as $name => $service) {
     Application::addService($name, $service);
 }
-
 // check if executed as console
 if ( php_sapi_name() != 'cli' ) {
     // get predefined routes and add them to the router

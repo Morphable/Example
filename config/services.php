@@ -7,6 +7,8 @@ use \Morphable\SimpleDebugger;
 use \Morphable\SimpleDatabase;
 use \App\Domain\User\Repository as UserRepository;
 use \App\Domain\Post\Repository as PostRepository;
+use \App\Domain\Post\Mapper as PostMapper;
+use \App\Domain\User\Mapper as UserMapper;
 use \App\Component\Encryption;
 
 // define services, name => instance
@@ -27,6 +29,8 @@ $services =  [
 ];
 
 $services['userRepository'] = new UserRepository($services['database']);
-$services['postRepository'] = new postRepository($services['database']);
+$services['postRepository'] = new PostRepository($services['database']);
+$services['postMapper'] = new PostMapper();
+$services['userMapper'] = new UserMapper();
 
 return $services;

@@ -29,7 +29,7 @@ return [
     ],
     'profile' => [
         'method' => 'GET',
-        'route' => '/profile/:userId',
+        'route' => '/profile/:slug',
         'callback' => [StaticPageController::class, 'serveProfile']
     ],
     'authPage' => [

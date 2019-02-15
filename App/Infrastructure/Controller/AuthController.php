@@ -61,11 +61,20 @@ class AuthController
     public static function register($req, $res)
     {
         $message = new FormMessage();
+        $username = trim($_POST['username']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
         $passwordRepeat = trim($_POST['password-repeat']);
 
         $valid = true;
+
+        if (!V::stringType()->length(3, 26)->validate($username)) {
+            $valid = false;
+            $message->setField('username', 'Length must be between 3 and 26');
+        } elseif (A::getService('userRepository')->checkUsernameUsed($username)) {
+            $valid = false;
+            $message->setField('username', 'Username already in use');
+        }
 
         if (!V::email()->validate($email)) {
             $valid = false;
@@ -95,6 +104,7 @@ class AuthController
         $insert = (new User())
             ->setEmail($email)
             ->setPassword($password)
+            ->setUsername($username)
             ->insert();
 
         if (!$insert) {
@@ -105,11 +115,13 @@ class AuthController
         }
 
         (new User())
-            ->setId($insert->lastInsertId())
+            ->setId($insert->getLastInsertId())
             ->setLastActive()
             ->update();
 
-        (new SetLoggedIn($user, $rememberMe, $res))->execute()->setCookie();
+        $user = A::getService('userRepository')->getAuthUserById($insert->getLastInsertId());
+
+        (new SetLoggedIn($user, false, $res))->execute()->setCookie();
 
         header('Location: /dashboard');
         return;
