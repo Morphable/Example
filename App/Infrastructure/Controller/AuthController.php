@@ -41,17 +41,20 @@ class AuthController
         (new SetLoggedIn($user, $rememberMe, $res))->execute()->setCookie();
 
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location: /dashboard');
         return;
     }
 
     public static function logout($req, $res)
     {
+        setcookie('token', null, 0, '/');
+        unset($_SESSION['user']);
+
         $message = new FormMessage();
-        $message->setGeneral(FormMessage::ERROR, 'not implemented');
+        $message->setGeneral(FormMessage::SUCCESS, 'Logged out');
         $message->exec();
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location: /');
         return;
     }
 
@@ -101,7 +104,14 @@ class AuthController
             return;
         }
 
-        header('Location: /');
+        (new User())
+            ->setId($insert->getLastInsertId())
+            ->setLastActive()
+            ->update();
+
+        (new SetLoggedIn($user, $rememberMe, $res))->execute()->setCookie();
+
+        header('Location: /dashboard');
         return;
     }
 

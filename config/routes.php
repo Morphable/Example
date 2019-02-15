@@ -21,6 +21,11 @@ return [
         'route' => '/home',
         'callback' => [StaticPageController::class, 'serveHome']
     ],
+    'dashboard' => [
+        'method' =>'GET',
+        'route' => '/dashboard',
+        'callback' => [StaticPageController::class, 'serveDashboard']
+    ],
     'authPage' => [
         'method' => 'GET',
         'route' => '/auth',
@@ -32,7 +37,7 @@ return [
         'callback' => [AuthController::class, 'login']
     ],
     'logout' => [
-        'method' => 'POST',
+        'method' => 'GET',
         'route' => '/auth/logout',
         'callback' => [AuthController::class, 'logout']
     ],

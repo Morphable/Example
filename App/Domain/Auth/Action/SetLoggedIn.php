@@ -38,7 +38,7 @@ class SetLoggedIn
 
     public function setCookie()
     {
-        $this->response->setCookie('token', $this->token, strtotime($this->expiry));
+        setcookie('token', $this->token, strtotime($this->expiry), '/');
         return $this;
     }
 

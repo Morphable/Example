@@ -9,7 +9,6 @@ use \App\Domain\User\Repository as UserRepository;
 
 // define services, name => instance
 $services =  [
-    'env' => getenv(),
     'cache' => new SimpleCache(Application::getPath('cache')),
     'view' => new SimpleView(Application::getPath('views')),
     'debug' => new SimpleDebugger(),

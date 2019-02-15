@@ -29,10 +29,6 @@ abstract class Model
 
     public function update()
     {
-        if (empty($this->data) || !isset($this->data['id']) || $this->tabel == null) {
-            return false;
-        }
-
         $this->prepareUpdate();
 
         $id = $this->data['id'];

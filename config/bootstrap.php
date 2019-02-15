@@ -4,6 +4,7 @@ use \App\Infrastructure\Application;
 use \Morphable\SimpleRouting;
 use \Morphable\SimpleRouting\Builder;
 use \Symfony\Component\Dotenv\Dotenv;
+use \App\Domain\Auth\Authorized;
 
 error_reporting(E_ALL);
 
@@ -33,6 +34,7 @@ if ( php_sapi_name() != 'cli' ) {
         SimpleRouting::add($name, Builder::fromArray($route));
     }
 
+    // save post fields
     if (!empty($_POST)) {
         foreach ($_POST as $key => $value) {
             if (isset($_SESSION['post'][$key])) {
@@ -43,6 +45,12 @@ if ( php_sapi_name() != 'cli' ) {
         }
     }
 
+    // set loggedIn user
+    unset($_SESSION['user']);
+    if (Authorized::isLoggedIn()) {
+        $_SESSION['user'] = Authorized::getLoggedInUser();
+    }
+
     // execute router and catch errors
     try {
         SimpleRouting::execute();
@@ -50,6 +58,7 @@ if ( php_sapi_name() != 'cli' ) {
         echo Application::getService('view')->serve('errors/404.php');
     }
 
+    // unset messages and post fields
     unset($_SESSION['post']);
     unset($_SESSION['message']);
 }
