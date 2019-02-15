@@ -14,7 +14,7 @@
 
 ## Third-party libraries
 - respect/validation (simple validation library)
-- symfony/dotenv (simple enviromental config file)
+- symfony/dotenv (simple environmental config file)
 - phpunit/phpunit (tests)
 - squizlabs/php_codesniffer (keeping your project psr-2)
 - symfony/console (crons and development commands)
