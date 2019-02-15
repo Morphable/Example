@@ -30,9 +30,9 @@ class Migrate extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Checking enviroment...");
+        $output->writeln("Checking ENVIRONMENT...");
 
-        if (!isset($_ENV['ENVIROMENT']) || strpos(strtolower($_ENV['ENVIROMENT']), 'prod') !== false) {
+        if (!isset($_ENV['ENVIRONMENT']) || strpos(strtolower($_ENV['ENVIRONMENT']), 'prod') !== false) {
             $output->writeln("For security reasons you cannot execute this command in production");
             return;
         }
