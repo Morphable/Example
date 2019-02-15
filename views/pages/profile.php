@@ -1,6 +1,7 @@
 <?= $this->include('components/header.php') ?>
 
 <?
+use \App\Infrastructure\Application as A;
 $user = $this->getData()['user'];
 $posts = $this->getData()['posts'];
 ?>
@@ -17,7 +18,10 @@ $posts = $this->getData()['posts'];
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4"><?= $user['username'] ?></p>
+                            <p class="title is-4"><?= $user['username'] ?> <?= A::getService('view')->serve('forms/follow.php', [
+                                'subjectId' => $user['id'],
+                                'userId' => $_SESSION['user']['id']
+                            ]) ?></p>
                         </div>
                     </div>
 
@@ -31,7 +35,6 @@ $posts = $this->getData()['posts'];
                 </div>
         </div>
         <div class="column is-8">
-            <? use \App\Infrastructure\Application as A; ?>
             <? foreach ($posts as $post) { ?>
                 <?= A::getService('view')->serve('components/post.php', $post) ?>
                 <hr>

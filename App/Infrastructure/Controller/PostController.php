@@ -13,8 +13,12 @@ class PostController
     {
         $message = new FormMessage();
         $content = trim($_POST['content']);
-        $userId = A::getService('encryption')->decrypt($_POST['user-id']);
+        $userId = $_POST['user-id'];
         $tags = trim($_POST['tags'] ?? '');
+
+        if ($userId != $_SESSION['user']['id']) {
+            return;
+        }
 
         if (!$userId) {
             $message->setGeneral(FormMessage::ERROR, 'Corrupt account');

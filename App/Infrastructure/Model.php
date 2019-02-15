@@ -53,4 +53,13 @@ abstract class Model
                 ->insert($this->data)
                 ->execute();
     }
+
+    public function delete()
+    {
+        return $this->db
+            ->builder($this->table)
+            ->where('`id` = ?', $this->data['id'])
+            ->delete()
+            ->execute();
+    }
 }

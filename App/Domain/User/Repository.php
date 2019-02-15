@@ -39,6 +39,33 @@ class Repository extends \App\Infrastructure\Repository
             ->fetchOne()['total'] > 0;
     }
 
+    public function checkUserIsFollowing(int $userId, int $subjectId)
+    {
+        return $this->db->builder('followers')
+            ->select('COUNT(1) as `total`')
+            ->where('`userId` = ? AND `subjectId` = ?', [$userId, $subjectId])
+            ->execute()
+            ->fetchOne()['total'] > 0;
+    }
+
+    public function getFollowId(int $userId, int $subjectId)
+    {
+        return $this->db->builder('followers')
+            ->select('`id`')
+            ->where('`userId` = ? AND `subjectId` = ?', [$userId, $subjectId])
+            ->execute()
+            ->fetchOne();
+    }
+
+    public function getUserIdBySlug(int $userId)
+    {
+        return $this->db->builder('users')
+            ->select('`id`')
+            ->where('id = ?', $userId)
+            ->execute()
+            ->fetchOne()['id'] ?? null;
+    }
+
     public function getAuthUserById(int $id)
     {
         return $this->normalize($this->db->builder('users')

@@ -4,6 +4,7 @@ use \App\Infrastructure\Controller\StaticPageController;
 use \App\Infrastructure\Controller\ResourceController;
 use \App\Infrastructure\Controller\AuthController;
 use \App\Infrastructure\Controller\PostController;
+use \App\Infrastructure\Controller\UserController;
 
 // predefine routes with static method as callback
 return [
@@ -71,5 +72,10 @@ return [
         'method' => 'POST',
         'route' => 'post/delete/:postId',
         'callback' => [PostController::class, 'delete']
+    ],
+    'follow' => [
+        'method' => 'POST',
+        'route' => 'user/follow/:userId',
+        'callback' => [UserController::class, 'follow']
     ]
 ];
