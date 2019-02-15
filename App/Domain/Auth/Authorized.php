@@ -2,7 +2,7 @@
 
 namespace App\Domain\Auth;
 
-use \Firebase\JWT\JWT;
+use \App\Infrastructure\Application as A;
 
 class Authorized
 {
@@ -12,7 +12,7 @@ class Authorized
 
     public static function isLoggedIn()
     {
-        return isset($_COOKIE['token']) && JWT::decode($_COOKIE['token'], getenv('JWT_SECRET'), ['HS256']);
+        return isset($_COOKIE['token']) && A::getService('encryption')->decrypt($_COOKIE['token']);
     }
 
     public static function hasRole(string $role)
@@ -22,6 +22,6 @@ class Authorized
 
     public static function getLoggedInUser()
     {
-        return (array) JWT::decode($_COOKIE['token'], getenv('JWT_SECRET'), ['HS256']);
+        return (array) A::getService('encryption')->decrypt($_COOKIE['token']);
     }
 }

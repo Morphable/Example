@@ -6,12 +6,15 @@ use \Morphable\SimpleView;
 use \Morphable\SimpleDebugger;
 use \Morphable\SimpleDatabase;
 use \App\Domain\User\Repository as UserRepository;
+use \App\Domain\Post\Repository as PostRepository;
+use \App\Component\Encryption;
 
 // define services, name => instance
 $services =  [
     'cache' => new SimpleCache(Application::getPath('cache')),
     'view' => new SimpleView(Application::getPath('views')),
     'debug' => new SimpleDebugger(),
+    'encryption' => new Encryption(getenv('JWT_SECRET')),
     'database' => new SimpleDatabase(
         "sqlite:" . str_replace(':data', Application::getPath('data'), getenv('DB_DNS')),
         getenv('DB_USER'),
@@ -24,5 +27,6 @@ $services =  [
 ];
 
 $services['userRepository'] = new UserRepository($services['database']);
+$services['postRepository'] = new postRepository($services['database']);
 
 return $services;

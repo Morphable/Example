@@ -25,11 +25,11 @@ abstract class Model
         return $this->data[$name];
     }
 
-    abstract public function prepareUpdate();
+    abstract public function beforeUpdate();
 
     public function update()
     {
-        $this->prepareUpdate();
+        $this->beforeUpdate();
 
         $id = $this->data['id'];
         $data = $this->data;
@@ -42,11 +42,11 @@ abstract class Model
                 ->execute();
     }
 
-    abstract public function prepareInsert();
+    abstract public function beforeInsert();
 
     public function insert()
     {
-        $this->prepareInsert();
+        $this->beforeInsert();
 
         return $this->db
                 ->builder($this->table)

@@ -34,6 +34,11 @@ if ( php_sapi_name() != 'cli' ) {
         SimpleRouting::add($name, Builder::fromArray($route));
     }
 
+    // set correct post method
+    if (isset($_POST['_method']) && $_POST['_method'] != null) {
+        $_SERVER['REQUEST_METHOD'] = $_POST['method'];
+    }
+
     // save post fields
     if (!empty($_POST)) {
         foreach ($_POST as $key => $value) {

@@ -3,6 +3,7 @@
 namespace App\Domain\Auth\Action;
 
 use \Firebase\JWT\JWT;
+use \App\Infrastructure\Application as A;
 
 class SetLoggedIn
 {
@@ -23,7 +24,6 @@ class SetLoggedIn
         $this->authUser = $authUser;
         $this->rememberMe = $rememberMe;
         $this->response = $response;
-        $this->secret = getenv("JWT_SECRET");
     }
 
     public function getExpiryDate()
@@ -52,7 +52,8 @@ class SetLoggedIn
         }
 
         $this->expiry = $load['expiry'];
-        $this->token = JWT::encode($load, $this->secret);
+
+        $this->token = A::getService('encryption')->encrypt($load);
         return $this;
     }
 }

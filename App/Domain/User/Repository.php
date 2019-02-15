@@ -4,13 +4,8 @@ namespace App\Domain\User;
 
 use \Morphable\SimpleDatabase;
 
-class Repository
+class Repository extends \App\Infrastructure\Repository
 {
-    public function __construct(SimpleDatabase $db)
-    {
-        $this->db = $db;
-    }
-
     public function checkEmailUsed($email)
     {
         return $this->db->builder('users')
@@ -25,6 +20,15 @@ class Repository
         return $this->db->builder('users')
             ->select('`id`, `email`, `password`, `isActive`')
             ->where('`email` = ?', $email)
+            ->execute()
+            ->fetchOne();
+    }
+
+    public function getPublicUser(int $id)
+    {
+        return $this->db->builder('users')
+            ->select('`id`, `isActive`, `email`')
+            ->where('`id` = ?', $email)
             ->execute()
             ->fetchOne();
     }

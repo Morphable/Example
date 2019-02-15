@@ -9,12 +9,21 @@ create table users (
     lastActive datetime
 );
 
+-- followers
+
+create table followers (
+    id integer primary key autoincrement,
+    subjectId integer,
+    userId integer,
+    foreign key (userId) references users(id),
+    foreign key (subjectId) references users(id)
+);
+
 -- posts
 
 create table posts (
     id integer primary key autoincrement,
     userId integer not null,
-    title varchar not null,
     content text,
     createdAt datetime not null,
     foreign key (userId) references users(id)

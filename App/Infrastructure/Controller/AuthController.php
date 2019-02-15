@@ -105,7 +105,7 @@ class AuthController
         }
 
         (new User())
-            ->setId($insert->getLastInsertId())
+            ->setId($insert->lastInsertId())
             ->setLastActive()
             ->update();
 

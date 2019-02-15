@@ -6,13 +6,13 @@ class User extends \App\Infrastructure\Model
 {
     protected $table = 'users';
 
-    public function prepareInsert()
+    public function beforeInsert()
     {
         $this->set('createdAt', date('Y-m-d H:i:s'));
         $this->set('isActive', '0');
     }
 
-    public function prepareUpdate()
+    public function beforeUpdate()
     {
     }
 

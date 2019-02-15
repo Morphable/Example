@@ -3,6 +3,7 @@
 use \App\Infrastructure\Controller\StaticPageController;
 use \App\Infrastructure\Controller\ResourceController;
 use \App\Infrastructure\Controller\AuthController;
+use \App\Infrastructure\Controller\PostController;
 
 // predefine routes with static method as callback
 return [
@@ -25,6 +26,11 @@ return [
         'method' =>'GET',
         'route' => '/dashboard',
         'callback' => [StaticPageController::class, 'serveDashboard']
+    ],
+    'profile' => [
+        'method' => 'GET',
+        'route' => '/profile/:userId',
+        'callback' => [StaticPageController::class, 'serveProfile']
     ],
     'authPage' => [
         'method' => 'GET',
@@ -51,5 +57,19 @@ return [
         'route' => '/auth/login',
         'callback' => [AuthController::class, 'forgotPassword']
     ],
-
+    'createPost' => [
+        'method' => 'POST',
+        'route' => 'post/create',
+        'callback' => [PostController::class, 'create']
+    ],
+    'updatePost' => [
+        'method' => 'PUT',
+        'route' => 'post/update/:postId',
+        'callback' => [PostController::class, 'update']
+    ],
+    'deletePost' => [
+        'method' => 'POST',
+        'route' => 'post/delete/:postId',
+        'callback' => [PostController::class, 'delete']
+    ]
 ];
