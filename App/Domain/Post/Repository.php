@@ -13,6 +13,24 @@ class Repository extends \App\Infrastructure\Repository
             ->fetchOne();
     }
 
+    public function broadSearch(string $query)
+    {
+        $query = "%$query%";
+        $postsTmp = $this->db->builder('posts')
+            ->select('`id`')
+            ->where('`content` LIKE ?', [$query])
+            ->limit(25)
+            ->execute()
+            ->fetch();
+
+        $posts = [];
+        foreach ($postsTmp as $post) {
+            $posts[] = $this->getPostById($post['id']);
+        }
+
+        return $posts;
+    }
+
     public function getPostsByUserId(int $userId, int $limit = 25, int $page = 0)
     {
         return $this->db->builder('posts')

@@ -54,7 +54,7 @@ class Repository extends \App\Infrastructure\Repository
             ->select('`id`')
             ->where('`userId` = ? AND `subjectId` = ?', [$userId, $subjectId])
             ->execute()
-            ->fetchOne();
+            ->fetchOne()['id'];
     }
 
     public function getUserIdBySlug(int $userId)
@@ -73,6 +73,25 @@ class Repository extends \App\Infrastructure\Repository
             ->where('`id` = ?', $id)
             ->execute()
             ->fetchOne());
+    }
+
+    public function broadSearch(string $query)
+    {
+        $query = "%$query%";
+
+        $usersTmp = $this->db->builder('users')
+            ->select(' `id`, `slug` ')
+            ->where('`username` LIKE ? OR bio LIKE ?', [$query, $query])
+            ->limit(25)
+            ->execute()
+            ->fetch();
+
+        $users = [];
+        foreach ($usersTmp as $user) {
+            $users[] = $this->getPublicUser($user['slug']);
+        }
+
+        return $users;
     }
 
     public function getAuthUser(string $email)

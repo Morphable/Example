@@ -80,9 +80,14 @@ class StaticPageController
 
     public static function serveSearch($req, $res)
     {
+        $query = $_GET['q'] ?? '';
+
+        $users = A::getService('userRepository')->broadSearch($query);
+
         return $res->sendResponse(
             A::getService('view')->serve('pages/search.php', [
-                'page' => 'search'
+                'page' => 'search',
+                'users' => $users
             ])
         );
     }
