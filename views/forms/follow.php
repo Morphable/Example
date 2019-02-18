@@ -2,13 +2,14 @@
     use \App\Infrastructure\Application as A;
     use \App\Domain\Auth\Authorization;
 
-    if (!\App\Domain\Auth\Authorized::isLoggedIn()) {
+    $data = $this->getData();
+    $subjectId = $data['subjectId'];
+
+    if (!\App\Domain\Auth\Authorized::isLoggedIn() || $subjectId == $_SESSION['user']['id']) {
         return;
     }
 
-    $data = $this->getData();
     $userId = $_SESSION['user']['id'];
-    $subjectId = $data['subjectId'];
     $isFollowing = A::getService('userRepository')->checkUserIsFollowing($userId, $subjectId);
 
     $classes = '';
