@@ -6,7 +6,6 @@ $user = $this->getData()['user'];
 $posts = $this->getData()['posts'];
 ?>
 <section class="section container">
-
     <div class="columns">
         <div class="column is-4">
             <div class="card">
@@ -18,21 +17,21 @@ $posts = $this->getData()['posts'];
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4"><?= $user['username'] ?>
-                                <?= A::getService('view')->serve('forms/follow.php', [
-                                    'subjectId' => $user['id']
-                                ]) ?></p>
+                            <p class="title is-4 is-pulled-left" style="margin-right: 1rem;"><?= $user['username'] ?></p>
+                            <?= A::getService('view')->serve('forms/follow.php', [
+                                'subjectId' => $user['id'],
+                                'classes' => ['is-pulled-left']
+                            ]) ?>
                         </div>
                     </div>
 
                     <div class="content">
                         <?= trim($user['bio']) != null ? trim($user['bio']) : '' ?>
-                        <br>
-                        <br>
+                        <hr>
                         <span><b>Member since:</b> <?= date('Y-m-d', strtotime($user['createdAt'])) ?></span>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="column is-8">
             <? foreach ($posts as $post) { ?>

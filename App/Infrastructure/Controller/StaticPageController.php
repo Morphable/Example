@@ -77,4 +77,13 @@ class StaticPageController
             ])
         );
     }
+
+    public static function serveSearch($req, $res)
+    {
+        return $res->sendResponse(
+            A::getService('view')->serve('pages/search.php', [
+                'page' => 'search'
+            ])
+        );
+    }
 }

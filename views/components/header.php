@@ -24,7 +24,24 @@
   </div>
 
   <div class="navbar-menu">
-    <div class="navbar-start"></div>
+    <div class="navbar-start">
+        <div class="navbar-iem">
+            <form action="/search" style="height: 100%; display: flex; align-items: center;">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input placeholder="search: user, post" class="input" name="q" type="search">
+                    </div>
+                    <div class="control">
+                        <button class="button is-info">
+                            <span class="icon is-small">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">

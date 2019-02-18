@@ -1,5 +1,8 @@
 
-<? $post = $this->getData(); ?>
+<?
+use \App\Infrastructure\Application as A;
+$post = $this->getData();
+?>
 
 <div class="card">
     <div class="card-content">
@@ -10,7 +13,13 @@
                 </figure>
             </div>
             <div class="media-content">
-                <a class="title is-4" href="/profile/<?= $post['slug'] ?>"><?= $post['username'] ?></a>
+                <a class="title is-4 is-pulled-left" style="margin-right: 1rem;" href="/profile/<?= $post['slug'] ?>">
+                    <?= $post['username'] ?>
+                </a>
+                <?= A::getService('view')->serve('forms/follow.php', [
+                    'subjectId' => $post['userId'],
+                    'classes' => ['is-pulled-left']
+                ]) ?>
             </div>
         </div>
 

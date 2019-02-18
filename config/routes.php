@@ -28,6 +28,11 @@ return [
         'route' => '/dashboard',
         'callback' => [StaticPageController::class, 'serveDashboard']
     ],
+    'search' => [
+        'method' => 'GET',
+        'route' => '/search',
+        'callback' => [StaticPageController::class, 'serveSearch']
+    ],
     'profile' => [
         'method' => 'GET',
         'route' => '/profile/:slug',
