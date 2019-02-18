@@ -18,10 +18,10 @@ $posts = $this->getData()['posts'];
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4"><?= $user['username'] ?> <?= A::getService('view')->serve('forms/follow.php', [
-                                'subjectId' => $user['id'],
-                                'userId' => $_SESSION['user']['id']
-                            ]) ?></p>
+                            <p class="title is-4"><?= $user['username'] ?>
+                                <?= A::getService('view')->serve('forms/follow.php', [
+                                    'subjectId' => $user['id']
+                                ]) ?></p>
                         </div>
                     </div>
 
