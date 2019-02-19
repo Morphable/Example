@@ -52,8 +52,13 @@ class StaticPageController
     public static function serveProfile($req, $res)
     {
         $slug = $req->getParam('slug');
-        if (strtolower($slug) == 'me' && Authorized::isLoggedIn()) {
-            $slug = $_SESSION['user']['slug'];
+        if (strtolower($slug) == 'me') {
+            if (Authorized::isLoggedIn()) {
+                $slug = $_SESSION['user']['slug'];
+            } else {
+                header('Location: /auth');
+                return;
+            }
         }
 
         $user = A::getService('userRepository')->getPublicUser($slug);
