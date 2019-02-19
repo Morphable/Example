@@ -22,7 +22,7 @@
 
 <form class="<?= trim($classes) ?>" action="/user/follow/<?= $subjectId ?>" method="POST">
     <input type="hidden" name="user-id" value="<?= $userId ?>">
-    <button class="button is-primary is-small">
+    <button class="button is-<?= $isFollowing ? 'success' : 'info' ?> is-small">
         <span class="icon is-small">
             <i class="fas fa-user-<?= $isFollowing ? 'minus' : 'plus' ?>"></i>
         </span>

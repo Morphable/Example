@@ -57,6 +57,15 @@ class Repository extends \App\Infrastructure\Repository
             ->fetchOne()['id'];
     }
 
+    public function getFollowing(int $userId)
+    {
+        return $this->db->builder('followers')
+            ->select('`subjectId`')
+            ->where('`userId` = ?', $userId)
+            ->execute()
+            ->fetch();
+    }
+
     public function getUserIdBySlug(int $userId)
     {
         return $this->db->builder('users')

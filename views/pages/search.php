@@ -12,6 +12,7 @@
     <?= A::getService('view')->serve('components/userPreview.php', [
         'user' => $user
     ]) ?>
+    <br>
 <? } ?>
 
 </div>

@@ -24,14 +24,14 @@ $post = $this->getData();
         </div>
 
         <div class="content is-medium"><?= $post['content'] ?></div>
+        <hr>
         <div class="meta content">
             <? if (!empty($post['tags'])) { ?>
-                <br>
                 <? foreach($post['tags'] as $tag) { ?>
                     <i>#<?= $tag ?> </i>
                 <? } ?>
+                <br>
             <? } ?>
-            <br>
             <time datetime="<?= date('Y-m-d', strtotime($post['createdAt'])) ?>"><?= date('Y-m-d', strtotime($post['createdAt'])) ?></time>
         </div>
     </div>

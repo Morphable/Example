@@ -11,7 +11,7 @@ class StaticPageController
     {
         if (Authorized::isLoggedIn()) {
             header('Location: /dashboard');
-            die;
+            return;
         }
 
         return $res->sendResponse(
@@ -25,7 +25,7 @@ class StaticPageController
     {
         if (Authorized::isLoggedIn()) {
             header('Location: /dashboard');
-            die;
+            return;
         }
 
         return $res->sendResponse(
@@ -39,12 +39,15 @@ class StaticPageController
     {
         if (!Authorized::isLoggedIn()) {
             header('Location: /auth');
-            die;
+            return;
         }
+
+        $posts = A::getService('postRepository')->getLatestPostsFromFollowing($_SESSION['user']['id']);
 
         return $res->sendResponse(
             A::getService("view")->serve("pages/dashboard.php", [
-                'page' => 'dashboard'
+                'page' => 'dashboard',
+                'posts' => $posts
             ])
         );
     }
