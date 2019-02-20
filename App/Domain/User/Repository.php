@@ -7,7 +7,7 @@ use \App\Infrastructure\Application as A;
 
 class Repository extends \App\Infrastructure\Repository
 {
-    private function normalize(array $user)
+    private function normalize($user)
     {
         return A::getService('userMapper')->normalize($user);
     }
@@ -35,6 +35,15 @@ class Repository extends \App\Infrastructure\Repository
         return $this->db->builder('users')
             ->select('COUNT(1) as `total`')
             ->where('`slug` = ?', $slug)
+            ->execute()
+            ->fetchOne()['total'] > 0;
+    }
+
+    public function checkResetTokenUsed(string $token)
+    {
+        return $this->db->builder('users')
+            ->select('COUNT(1) as `total`')
+            ->where('`resetToken` = ?', $token)
             ->execute()
             ->fetchOne()['total'] > 0;
     }
@@ -101,6 +110,21 @@ class Repository extends \App\Infrastructure\Repository
         }
 
         return $users;
+    }
+
+    public function getAuthUserByResetToken(string $token)
+    {
+        $userId = $this->db->builder('users')
+            ->select('`id`')
+            ->where('`resetToken` = ?', $token)
+            ->execute()
+            ->fetchOne();
+
+        if ($userId == null) {
+            return null;
+        }
+
+        return $this->getAuthUserById($userId['id']);
     }
 
     public function getAuthUser(string $email)

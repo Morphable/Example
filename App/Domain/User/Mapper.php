@@ -4,8 +4,12 @@ namespace App\Domain\User;
 
 class Mapper
 {
-    public function normalize(array $user)
+    public function normalize($user)
     {
+        if (!is_array($user)) {
+            return null;
+        }
+
         if (!isset($user['profilePic']) || $user['profilePic'] == '') {
             $user['profilePic'] = 'http://via.placeholder.com/128x128';
         }

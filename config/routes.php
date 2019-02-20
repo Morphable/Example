@@ -60,8 +60,13 @@ return [
     ],
     'forgotPassword' => [
         'method' => 'POST',
-        'route' => '/auth/login',
+        'route' => '/auth/forgot-password',
         'callback' => [AuthController::class, 'forgotPassword']
+    ],
+    'newPassword' => [
+        'method' => 'POST',
+        'route' => '/auth/new-password',
+        'callback' => [AuthController::class, 'newPassword']
     ],
     'createPost' => [
         'method' => 'POST',

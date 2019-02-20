@@ -21,9 +21,15 @@
         </label>
     </div>
 
-    <div class="field">
+    <div class="field is-grouped">
         <div class="control">
             <button class="button is-primary">Login</button>
+        </div>
+        <div class="control">
+            <a class="button is-text" href="/auth?type=register">Sign up!</a>
+        </div>
+        <div class="control">
+            <a class="button is-text" href="/auth?type=forgot-password">Forgot password XD</a>
         </div>
     </div>
 

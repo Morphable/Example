@@ -129,6 +129,81 @@ class AuthController
 
     public static function forgotPassword($req, $res)
     {
-        # code...
+        $message = new FormMessage();
+
+        $email = trim($_POST['email']);
+
+        $msg = '???';
+
+        if ($email == null) {
+            $message->setGeneral(FormMessage::ERROR, "Invalid email");
+            $message->exec();
+
+            header('Location: /');
+            return;
+        }
+
+        $authUser = A::getService('userRepository')->getAuthUser($email);
+
+        if (empty($authUser)) {
+            $message->setGeneral(FormMessage::ERROR, "LOL wtf?");
+            $message->exec();
+
+            header('Location: /');
+            return;
+        }
+
+        $user = new User();
+
+        $token = $user->getResetToken();
+
+        $user->setId($authUser['id']);
+        $user->setResetToken($token);
+        $user->update();
+
+        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}";
+        $resetUrl = rtrim($baseUrl, '/') . '/auth?type=new-password&token=' . $token;
+
+        die($resetUrl);
+
+        // mail($authUser['email'], 'Password reset', "Reset url: $resetUrl");
+    }
+
+    public function newPassword($req, $res)
+    {
+        $message = new FormMessage();
+        $token = $_POST['token'];
+        $password = $_POST['password'];
+        $passwordRepeat = $_POST['repeat-password'];
+
+        if ($password == null) {
+            $message->setGeneral(FormMessage::ERROR, "Missing password");
+            $message->exec();
+
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        if ($password != $passwordRepeat) {
+            $message->setGeneral(FormMessage::ERROR, "Password repeat should be equal to password");
+            $message->exec();
+
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        $authUser = A::getService('userRepository')->getAuthUserByResetToken($token);
+
+        (new User())
+            ->setId($authUser['id'])
+            ->setLastActive()
+            ->setPassword($password)
+            ->update();
+
+        $message->setGeneral(FormMessage::SUCCESS, "Password reset");
+        $message->exec();
+
+        header('Location: /auth');
+        return;
     }
 }

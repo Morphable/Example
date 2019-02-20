@@ -2,18 +2,30 @@
 
 <div class="container section">
 
-    <h1 class="title is-1">Authentication</h1>
-    <hr>
-
-    <? if ($_GET['type'] == 'forgot-password') { ?>
-        <h3 class="title is-5">Forgot password</h3>
-        <?= $this->include('forms/auth/forgotPassword.php') ?>
-    <? } elseif ($_GET['type'] == 'register') { ?>
-        <h3 class="title is-5">Register</h3>
-        <?= $this->include('forms/auth/register.php') ?>
-    <? } else { ?>
-        <h3 class="title is-5">Login</h3>
+    <? if (!isset($_GET['type']) || $_GET['type'] == null) { ?>
+        <h1 class="title is-1">Login</h1>
+        <hr>
         <?= $this->include('forms/auth/login.php') ?>
+    <? } else { ?>
+
+        <? if ($_GET['type'] == 'forgot-password') { ?>
+            <h1 class="title is-1">Forgot password</h1>
+            <hr>
+            <?= $this->include('forms/auth/forgotPassword.php') ?>
+        <? } elseif ($_GET['type'] == 'register') { ?>
+            <h1 class="title is-1">Register</h1>
+            <hr>
+            <?= $this->include('forms/auth/register.php') ?>
+        <? } elseif ($_GET['type'] == 'new-password') { ?>
+            <? if (!isset($_GET['token'])) { ?>
+                <? header('Location: /'); die; ?>
+            <? } else { ?>
+                <h1 class="title is-1">New password</h1>
+                <hr>
+                <?= $this->include('forms/auth/newPassword.php') ?>
+            <? } ?>
+        <? } ?>
+
     <? } ?>
 </div>
 <?= $this->include('components/footer.php') ?>

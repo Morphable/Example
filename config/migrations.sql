@@ -9,6 +9,7 @@ create table users (
     username varchar,
     profilePic varchar,
     isActive tinyint default 0,
+    resetToken varchar,
     createdAt datetime not null,
     lastActive datetime
 );

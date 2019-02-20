@@ -4,8 +4,12 @@ namespace App\Domain\Post;
 
 class Mapper
 {
-    public function normalize(array $post)
+    public function normalize($post)
     {
+        if (!is_array($post)) {
+            return null;
+        }
+
         if (isset($post['tags'])) {
             $post['tags'] = explode(',', $post['tags']);
         } else {
